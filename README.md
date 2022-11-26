@@ -47,12 +47,12 @@ You can deploy this bot anywhere.
 <i>**[HOW TO DEPLOY WTCH THIS VIDEO...](https://youtu.be/v7Vbu3u_VrE)**</i>
 
 
-<details><summary>Deploy To Heroku</summary>
+<details><summary>Deploy To Koyeb</summary>
 <p>
 <br>
 
-<a href="https://telegram.dog/XTZ_HerokuBot?start=TW92aWVzaW5kbmEvZmlsZS1maWx0ZXItYm90djUgbWFzdGVy">
-  <img src="https://user-images.githubusercontent.com/105805201/193201299-52085501-806c-4abc-8ba2-7e4d30106f7d.svg" alt="Deploy">
+<a href="https://app.koyeb.com/">
+  <img src="https://user-images.githubusercontent.com/114851821/204074693-9b38e680-00b1-492e-9d4e-1fc73b40545b.png" alt="Deploy">
 </a>
 </p>
 </details>
