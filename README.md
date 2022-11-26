@@ -52,7 +52,7 @@ You can deploy this bot anywhere.
 <br>
 
 <a href="https://app.koyeb.com/">
-  <img src="https://user-images.githubusercontent.com/105805201/193201299-52085501-806c-4abc-8ba2-7e4d30106f7d.svg" alt="Deploy">
+  <img src="https://images.app.goo.gl/9Fu9okcvkYMbiBt79" alt="Deploy">
 </a>
 </p>
 </details>
