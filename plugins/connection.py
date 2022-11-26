@@ -1,4 +1,4 @@
-from pyrogram import filters, Client, enums
+from pyrogram import filters, Client
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from database.connections_mdb import add_connection, all_connections, if_active, delete_connection
 from info import ADMINS
@@ -15,26 +15,26 @@ async def addconnection(client, message):
         return await message.reply(f"You are anonymous admin. Use /connect {message.chat.id} in PM")
     chat_type = message.chat.type
 
-    if chat_type == enums.ChatType.PRIVATE:
+    if chat_type == "private":
         try:
             cmd, group_id = message.text.split(" ", 1)
         except:
             await message.reply_text(
-                "<b>𝙴𝙽𝚃𝙴𝚁 𝙸𝙽 𝙲𝙾𝚁𝚁𝙴𝙲𝚃 𝙵𝙾𝚁𝙼𝙰𝚃!</b>\n\n"
-                "<code>/connect 𝙶𝚁𝙾𝚄𝙿 𝙸𝙳</code>\n\n"
+                "<b>Enter in correct format!</b>\n\n"
+                "<code>/connect groupid</code>\n\n"
                 "<i>Get your Group id by adding this bot to your group and use  <code>/id</code></i>",
                 quote=True
             )
             return
 
-    elif chat_type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
+    elif chat_type in ["group", "supergroup"]:
         group_id = message.chat.id
 
     try:
         st = await client.get_chat_member(group_id, userid)
         if (
-                st.status != enums.ChatMemberStatus.ADMINISTRATOR
-                and st.status != enums.ChatMemberStatus.OWNER
+                st.status != "administrator"
+                and st.status != "creator"
                 and userid not in ADMINS
         ):
             await message.reply_text("You should be an admin in Given group!", quote=True)
@@ -49,22 +49,22 @@ async def addconnection(client, message):
         return
     try:
         st = await client.get_chat_member(group_id, "me")
-        if st.status == enums.ChatMemberStatus.ADMINISTRATOR:
+        if st.status == "administrator":
             ttl = await client.get_chat(group_id)
             title = ttl.title
 
             addcon = await add_connection(str(group_id), str(userid))
             if addcon:
                 await message.reply_text(
-                    f"𝚂𝚄𝙲𝙲𝙴𝚂𝚂𝙵𝚄𝙻𝙻𝚈 𝙲𝙾𝙽𝙽𝙴𝙲𝚃 𝚃𝙾 **{title}**\n𝙽𝙾𝚆 𝚈𝙾𝚄 𝙲𝙰𝙽 𝙼𝙰𝙽𝙰𝙶𝙴 𝚈𝙾𝚄𝚁 𝙶𝚁𝙾𝚄𝙿 𝙵𝚁𝙾𝙼 𝙷𝙴𝚁𝙴../",
+                    f"Successfully connected to **{title}**\nNow manage your group from my pm !",
                     quote=True,
-                    parse_mode=enums.ParseMode.MARKDOWN
+                    parse_mode="md"
                 )
-                if chat_type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
+                if chat_type in ["group", "supergroup"]:
                     await client.send_message(
                         userid,
                         f"Connected to **{title}** !",
-                        parse_mode=enums.ParseMode.MARKDOWN
+                        parse_mode="md"
                     )
             else:
                 await message.reply_text(
@@ -86,16 +86,16 @@ async def deleteconnection(client, message):
         return await message.reply(f"You are anonymous admin. Use /connect {message.chat.id} in PM")
     chat_type = message.chat.type
 
-    if chat_type == enums.ChatType.PRIVATE:
+    if chat_type == "private":
         await message.reply_text("Run /connections to view or disconnect from groups!", quote=True)
 
-    elif chat_type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
+    elif chat_type in ["group", "supergroup"]:
         group_id = message.chat.id
 
         st = await client.get_chat_member(group_id, userid)
         if (
-                st.status != enums.ChatMemberStatus.ADMINISTRATOR
-                and st.status != enums.ChatMemberStatus.OWNER
+                st.status != "administrator"
+                and st.status != "creator"
                 and str(userid) not in ADMINS
         ):
             return
@@ -136,7 +136,7 @@ async def connections(client, message):
             pass
     if buttons:
         await message.reply_text(
-            "𝙲𝙾𝙽𝙽𝙴𝙲𝚃𝙴𝙳 𝙶𝚁𝙾𝚄𝙿𝚂 :-\n\n",
+            "Your connected group details ;\n\n",
             reply_markup=InlineKeyboardMarkup(buttons),
             quote=True
         )
